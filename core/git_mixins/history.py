@@ -22,14 +22,14 @@ class HistoryMixin():
             "--skip={}".format(skip) if skip else None,
             "--author={}".format(author) if author else None,
             "--reverse" if reverse else None,
-            '--format=%h%n%H%n%s%n%an%n%ae%n%at%x00%B%x00%x00',
+            '--format=%h%n%H%n%s%n%an%n%ae%n%at%x00%B%x00%x00%n',
             "{}..{}".format(*start_end) if start_end else None,
             "--" if fpath else None,
             fpath
         ).strip("\x00")
 
         entries = []
-        for entry in log_output.split("\x00\x00"):
+        for entry in log_output.split("\x00\x00\n"):
             entry = entry.strip()
             if not entry:
                 continue
